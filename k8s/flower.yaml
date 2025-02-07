@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flower
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flower
+  template:
+    metadata:
+      labels:
+        app: flower
+    spec:
+      containers:
+        - name: flower
+          image: mher/flower
+          ports:
+            - containerPort: 5555
+          envFrom:
+            - secretRef:
+                name: tcc-escalabilidade-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flower-service
+spec:
+  selector:
+    app: flower
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 5555
+      targetPort: 5555
+      nodePort: 30055

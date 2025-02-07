@@ -1,0 +1,1 @@
+locust -f src/stress_test_case_1.py --host http://localhost:8000     

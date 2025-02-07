@@ -1,0 +1,7 @@
+uvicorn
+fastapi
+celery
+pydantic==1.10.11
+redis
+sqlalchemy
+psycopg2-binary
