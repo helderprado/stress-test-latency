@@ -13,12 +13,19 @@ spec:
         app: locust
     spec:
       containers:
-      - name: locust
-        image: helderprado/tcc-locust:1.0.0
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8089
-        command: ["locust", "-f", "stress_test_case_1.py", "--host", "http://api-service.default.svc.cluster.local:8000"]
+        - name: locust
+          image: helderprado/tcc-locust:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8089
+          command:
+            [
+              "locust",
+              "-f",
+              "stress_test_case_1.py",
+              "--host",
+              "http://api-service.default.svc.cluster.local:8000",
+            ]
 ---
 apiVersion: v1
 kind: Service
@@ -29,7 +36,7 @@ spec:
     app: locust
   ports:
     - protocol: TCP
-      port: 8089  
-      targetPort: 8089  
-      nodePort: 30000  
+      port: 8089
+      targetPort: 8089
+      nodePort: 30000
   type: NodePort

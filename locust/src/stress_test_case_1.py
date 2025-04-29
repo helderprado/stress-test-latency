@@ -3,8 +3,8 @@ import requests
 
 
 class PerformanceTests(HttpUser):
-    # Define um tempo de espera aleatório entre 5 e 10 segundos entre requisições
-    wait_time = between(5, 10)
+    # Define um tempo de espera aleatório entre 1 a 2 minutos entre requisições
+    wait_time = between(60, 120)
 
     @task(1)
     def trigger_task(self):

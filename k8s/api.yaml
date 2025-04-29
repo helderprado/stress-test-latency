@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: api
 spec:
-  replicas: 5
+  replicas: 6
   selector:
     matchLabels:
       app: api
@@ -19,7 +19,7 @@ spec:
           ports:
             - containerPort: 8000
 
-          command: ["uvicorn", "app.api.main:app", "--workers", "2", "--host", "0.0.0.0", "--port", "8000"]
+          command: ["uvicorn", "app.api.main:app", "--workers", "1", "--host", "0.0.0.0", "--port", "8000"]
 
           envFrom:
             - secretRef:

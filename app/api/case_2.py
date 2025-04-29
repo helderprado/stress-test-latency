@@ -5,7 +5,7 @@ from celery.result import (
 from app.api.dto import CeleryTaskOutputDto  # DTO para padronizar a resposta da API
 from app.celery.worker import celery  # Importa a instância do Celery
 from app.celery.tasks import (
-    task_with_high_latency,
+    task_with_high_latency_and_full_core_usage,
 )  # Importa a tarefa Celery que será executada
 from datetime import datetime
 
@@ -25,7 +25,7 @@ def start_task():
     Retorno:
         - dict: Contém o ID da tarefa para consulta posterior.
     """
-    task = task_with_high_latency.delay(
+    task = task_with_high_latency_and_full_core_usage.delay(
         enqueued_time=datetime.utcnow().isoformat()
     )  # Dispara a tarefa Celery em segundo plano
     return {"task_id": task.id}  # Retorna o ID da tarefa para rastreamento

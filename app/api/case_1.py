@@ -12,6 +12,7 @@ import random  # Biblioteca para geração de números aleatórios
 from sqlalchemy.orm import (
     Session,
 )  # Importa a classe Session para manipulação do banco de dados
+import math
 
 # Define um roteador para o "Cenário 1", agrupando suas rotas sob o prefixo "/case_1"
 router = APIRouter(prefix="/case_1", tags=["Cenário 1"])
@@ -35,8 +36,13 @@ def trigger_task(session: Session = Depends(get_session)):
     """
 
     delay = random.uniform(17, 20)  # Gera um tempo de espera aleatório
-    time.sleep(delay)  # Simula a latência da tarefa
     task_id = str(uuid4())  # Gera um ID único para a tarefa
+
+    end_time = time.time() + delay
+
+    # Loop que força a CPU trabalhar sem parar
+    while time.time() < end_time:
+        math.sqrt(random.random() * random.random())
 
     with get_session() as session:
 
@@ -45,6 +51,7 @@ def trigger_task(session: Session = Depends(get_session)):
             task_id=task_id,  # ID único da tarefa
             status="SUCCESS",  # Define a tarefa como concluída
             time_spent=delay,  # Registra o tempo total de execução
+            test_number=1,
         )
 
         session.add(task_result)  # Adiciona a tarefa à sessão do banco

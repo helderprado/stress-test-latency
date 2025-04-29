@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, String, Float
+from sqlalchemy import create_engine, Column, String, Float, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
@@ -22,6 +22,7 @@ class TaskResult(Base):
     task_id = Column(String, primary_key=True, index=True)  # ID único da tarefa
     status = Column(String)  # Status da tarefa (ex: "PENDING", "SUCCESS", "FAILURE")
     time_spent = Column(Float)  # Tempo total da tarefa
+    test_number = Column(Integer)  # Número do teste realizado
 
 
 # Cria a tabela no banco de dados se ela ainda não existir
